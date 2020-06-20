@@ -2,6 +2,7 @@ const config = {
   /** Development ENV Setup */
   dev: {
     server: {
+      HOST: process.env.HOST || 'localhost',
       PORT: process.env.PORT || 8080,
       ENV: process.env.ENVIRONMENT || 'development',
     },
