@@ -15,6 +15,7 @@ dbConfig();
 
 /** Initialize Express App */
 const app = express();
+app.use(express.json());
 
 /** Routes Mounting */
 app.use('/', routeApi);
