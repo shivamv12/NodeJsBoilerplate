@@ -9,7 +9,9 @@ const app = express();
 
 app.listen(server.PORT, () => {
   console.log(
-    `\nServer is up on port: ${server.PORT.bold} with environment: ${server.ENV.bold}.\n`
-      .green + `Base URL: http://localhost:${server.PORT}/\n`.underline
+    '\nServer Info: '.bold +
+      `port: ${server.PORT.bold.green}, environment: ${server.ENV.bold.green}.\n` +
+      'Base URL: '.bold +
+      `http://${server.HOST}:${server.PORT}/\n`.underline.green
   );
 });
