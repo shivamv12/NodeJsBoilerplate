@@ -4,17 +4,20 @@ require('dotenv').config({path: './configuration/.env'});
 const {
   dev: {server},
 } = require('./configuration/setup');
+const dbConfig = require('./configuration/database');
+dbConfig();
+
 const routeApi = require('./routes/index');
 
 const app = express();
 
 app.use('/', routeApi);
 
-app.listen(server.PORT, () => {
+app.listen(server.port, () => {
   console.log(
     '\nServer Info: '.bold +
-      `port: ${server.PORT.bold.green}, environment: ${server.ENV.bold.green}.\n` +
+      `port: ${server.port.bold.green}, environment: ${server.env.bold.green}.\n` +
       'Base URL: '.bold +
-      `http://${server.HOST}:${server.PORT}/\n`.underline.green
+      `http://${server.host}:${server.port}/`.underline.green
   );
 });
