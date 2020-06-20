@@ -4,8 +4,11 @@ require('dotenv').config({path: './configuration/.env'});
 const {
   dev: {server},
 } = require('./configuration/setup');
+const routeApi = require('./routes/index');
 
 const app = express();
+
+app.use('/', routeApi);
 
 app.listen(server.PORT, () => {
   console.log(
