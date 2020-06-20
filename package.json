@@ -1,0 +1,25 @@
+{
+  "name": "nodejsboilerplate",
+  "version": "1.0.0",
+  "description": "node js boilerplate ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivamv12/NodeJsBoilerplate.git"
+  },
+  "keywords": [
+    "nodej",
+    "node-js",
+    "node-server",
+    "node-boilerplate"
+  ],
+  "author": "Shivam V.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivamv12/NodeJsBoilerplate/issues"
+  },
+  "homepage": "https://github.com/shivamv12/NodeJsBoilerplate#readme"
+}
