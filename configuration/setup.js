@@ -8,7 +8,7 @@ const config = {
     },
     dbLocal: {
       host: process.env.DB_LOCAL_HOST || 'localhost',
-      port: process.env.DB_LOCAL_PORT || 27020,
+      port: process.env.DB_LOCAL_PORT || 27017,
       dbName: process.env.DB_LOCAL_NAME,
     },
     dbServer: {
