@@ -23,7 +23,13 @@ const database = {
   },
 };
 
-const connectDb = async () => await dbServerUp(server.env);
+const connectDb = async () => {
+  try {
+    await dbServerUp(server.env);
+  } catch (err) {
+    console.log('DB Connection Error:'.bold, `${err.message}\n`.red);
+  }
+};
 mongoose.set('debug', true);
 
 module.exports = connectDb;
