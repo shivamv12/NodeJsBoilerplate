@@ -2,14 +2,28 @@ const config = {
   /** Development ENV Setup */
   dev: {
     server: {
-      HOST: process.env.HOST || 'localhost',
-      PORT: process.env.PORT || 8080,
-      ENV: process.env.ENVIRONMENT || 'development',
+      host: process.env.HOST || 'localhost',
+      port: process.env.PORT || 8080,
+      env: process.env.ENVIRONMENT || 'development',
     },
-    dbLocal: {},
+    dbLocal: {
+      host: process.env.DB_LOCAL_HOST || 'localhost',
+      port: process.env.DB_LOCAL_PORT || 27020,
+      dbName: process.env.DB_LOCAL_NAME,
+    },
     dbServer: {
-      URL: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+      dbName: process.env.DB_NAME,
+      dbUser: process.env.DB_USER,
+      cluster: process.env.DB_CLUSTER,
+      password: process.env.DB_PASSWORD,
     },
+  },
+
+  /** Production ENV Setup */
+  prod: {
+    server: {},
+    dbLocal: {},
+    dbServer: {},
   },
 };
 
