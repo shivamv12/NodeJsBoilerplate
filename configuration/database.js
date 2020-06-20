@@ -1,9 +1,12 @@
+/** NPM Packages */
 const mongoose = require('mongoose');
 
+/** Custom Packages */
 const {
   dev: {server, dbServer, dbLocal},
 } = require('./setup');
 
+/** DB object for online & local db setup */
 const database = {
   server: {
     mongoConfig: {
@@ -20,10 +23,13 @@ const database = {
   },
 };
 
-const connectDb = async () => await serverUp(server.env);
+const connectDb = async () => await dbServerUp(server.env);
 mongoose.set('debug', true);
 
-async function serverUp(env) {
+module.exports = connectDb;
+
+/** DB Server Up Method */
+async function dbServerUp(env) {
   switch (env) {
     case 'development':
       const conn = await mongoose.connect(
@@ -37,5 +43,3 @@ async function serverUp(env) {
       break;
   }
 }
-
-module.exports = connectDb;

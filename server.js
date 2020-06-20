@@ -1,18 +1,25 @@
+/** NPM Packages */
 require('colors');
 const express = require('express');
+
+/** Custom Packages */
 require('dotenv').config({path: './configuration/.env'});
 const {
   dev: {server},
 } = require('./configuration/setup');
+const routeApi = require('./routes/index');
 const dbConfig = require('./configuration/database');
+
+/** Initialize Database Connection */
 dbConfig();
 
-const routeApi = require('./routes/index');
-
+/** Initialize Express App */
 const app = express();
 
+/** Routes Mounting */
 app.use('/', routeApi);
 
+/** Creating a Server */
 app.listen(server.port, () => {
   console.log(
     '\nServer Info: '.bold +
