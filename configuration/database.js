@@ -1,5 +1,6 @@
 /** NPM Packages */
 const mongoose = require('mongoose');
+const mongo = require('mongodb').MongoClient;
 
 /** Custom Packages */
 const {
@@ -19,6 +20,10 @@ const database = {
     url: `mongodb+srv://${dbServer.dbUser}:${dbServer.password}@${dbServer.cluster}/${dbServer.dbName}?retryWrites=true&w=majority`,
   },
   local: {
+    mongoConfig: {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
     url: `mongodb://${dbLocal.host}:${dbLocal.port}/${dbServer.dbName}`,
   },
 };
@@ -46,6 +51,12 @@ async function dbServerUp(env) {
         `MongoDB connection state: `.bold +
           `${conn.connection.readyState}\n`.green
       );
+      break;
+
+    case 'local':
+      const client = new mongo(database.local.url);
+      await client.connect();
+      console.log('MongoDB connected successfully.\n'.bold.green);
       break;
   }
 }
