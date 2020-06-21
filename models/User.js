@@ -17,6 +17,11 @@ const UserSchema = new Schema(
       type: String,
       required: [true, 'Please enter UID.'],
     },
+    slug: {
+      trim: true,
+      type: String,
+      required: [true, 'Please enter Slug.'],
+    },
     email: {
       index: true,
       unique: true,
