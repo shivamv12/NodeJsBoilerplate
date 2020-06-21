@@ -10,7 +10,7 @@ exports.signUp = async (req, res) => {
   try {
     const user = await authService.signUp(req.body);
     if (!user)
-      return res.status(422).send({msg: 'User could not be registered.'});
+      return res.status(409).send({msg: 'User could not be registered.'});
     return res
       .status(200)
       .send({msg: 'Successfully Registered.', data: req.body});
