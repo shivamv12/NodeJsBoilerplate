@@ -11,5 +11,8 @@ exports.signUp = async (payload) => {
   payload.uid = await randomGenerator({prefix: 'UID_', length: 8});
   payload.slug = await slugGenerator(payload.name, {length: 5});
 
+  let duplicate = await userRepo.findOne({email: payload.email});
+  if (duplicate) return 0;
+
   return await userRepo.create(payload);
 };
