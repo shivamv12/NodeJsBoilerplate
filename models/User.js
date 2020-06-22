@@ -1,6 +1,10 @@
 /** NPM Packages */
 const bcrypt = require('bcrypt');
+const JWT = require('jsonwebtoken');
 const mongoose = require('mongoose');
+
+/** Custom Package */
+const usersSerializer = require('../serializers/usersSerializer');
 
 const Schema = mongoose.Schema;
 
@@ -40,9 +44,10 @@ const UserSchema = new Schema(
   {timestamps: true}
 );
 
-/** Adding an Index on email & make it unique. */
-UserSchema.index({email: 1}, {unique: true});
-
+/**
+ * ==================== Middlewares ====================
+ * Hash password before save it into DB
+ */
 UserSchema.pre('save', async function (next) {
   try {
     const salt = await bcrypt.genSalt(10);
@@ -52,5 +57,25 @@ UserSchema.pre('save', async function (next) {
     next(err.message);
   }
 });
+
+/**
+ * ====================== Methods ======================
+ * Match request password with hashed in DB
+ */
+UserSchema.methods.validatePassword = async function (reqPassword) {
+  return await bcrypt.compare(reqPassword, this.password);
+};
+
+/** Match request password with hashed in DB */
+UserSchema.methods.getUser = async function () {
+  return await usersSerializer.serializeUser(this);
+};
+
+/** Generate signed JWT token. Payload: {id, email} */
+UserSchema.methods.getSignedJwtToken = function () {
+  return JWT.sign({id: this._id, email: this.email}, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);
