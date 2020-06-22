@@ -18,3 +18,16 @@ exports.signUp = async (req, res) => {
     return res.status(500).send({msg: err.message});
   }
 };
+
+/**
+ * @param - email, password
+ * @desc - User Sign In Functionality
+ */
+exports.signIn = async (req, res) => {
+  try {
+    const accessToken = await authService.getSignedJwtToken(req.user);
+    return res.status(200).send({msg: 'Successfully Logged In.', accessToken});
+  } catch (err) {
+    return res.status(500).send({msg: err.message});
+  }
+};
