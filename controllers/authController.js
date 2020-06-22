@@ -1,6 +1,7 @@
 /** NPM Packages */
 /** Custom Packages */
 const authService = require('../services/authService');
+const welcomeMailJob = require('../jobs/auth/welcomeMailJob');
 
 /**
  * @param - name, email, password
@@ -11,6 +12,10 @@ exports.signUp = async (req, res) => {
     const user = await authService.signUp(req.body);
     if (!user)
       return res.status(409).send({msg: 'User could not be registered.'});
+
+    /** Sending welcome email */
+    await welcomeMailJob({uid: user.uid});
+
     return res
       .status(200)
       .send({msg: 'Successfully Registered.', data: req.body});
