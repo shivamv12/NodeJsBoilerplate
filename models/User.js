@@ -1,6 +1,5 @@
 /** NPM Packages */
 const bcrypt = require('bcrypt');
-const JWT = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 /** Custom Package */
@@ -69,13 +68,6 @@ UserSchema.methods.validatePassword = async function (reqPassword) {
 /** Match request password with hashed in DB */
 UserSchema.methods.getUser = async function () {
   return await usersSerializer.serializeUser(this);
-};
-
-/** Generate signed JWT token. Payload: {id, email} */
-UserSchema.methods.getSignedJwtToken = function () {
-  return JWT.sign({id: this._id, email: this.email}, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
 };
 
 module.exports = mongoose.model('User', UserSchema);
