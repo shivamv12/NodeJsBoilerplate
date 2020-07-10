@@ -4,7 +4,7 @@ const slugify = require('slugify');
 const randomGenerator = require('./randomGenerator');
 
 /**
- * @param - Value: <string>, Options: <objcet> {length: <num>, prefix: <val> (optional)}
+ * @param - Value: <string>, Options: <objcet> {length: <num>, prefix: <val>} (optional)
  * @desc - Generate random string of given length. If prefix passed in object,
  *         then add prefix to random code.
  */
