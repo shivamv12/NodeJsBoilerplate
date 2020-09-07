@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --testTimeout=10000",
+    "test:watch": "jest --watchAll ",
+    "test:coverage": "jest --watchAll --coverage"
   },
   "repository": {
     "type": "git",
