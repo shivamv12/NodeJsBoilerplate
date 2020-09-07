@@ -1,31 +1,29 @@
+/** Core Packages */
 /** NPM Packages */
-require('colors');
-const express = require('express');
-
 /** Custom Packages */
-require('dotenv').config({path: './configuration/.env'});
+const app = require('./app');
 const {
   dev: {server},
 } = require('./configuration/setup');
-const routeApi = require('./routes/index');
 const dbConfig = require('./configuration/database');
 
 /** Initialize Database Connection */
 dbConfig();
 
-/** Initialize Express App */
-const app = express();
-app.use(express.json());
-
-/** Routes Mounting */
-app.use('/', routeApi);
+/** Assinging the PORT */
+const PORT = server.port;
 
 /** Creating a Server */
-app.listen(server.port, () => {
+app.listen(PORT, () => {
   console.log(
-    '\nServer Info: '.bold +
-      `port: ${server.port.bold.green}, environment: ${server.env.bold.green}.\n` +
-      'Base URL: '.bold +
-      `http://${server.host}:${server.port}/`.underline.green
+    '\nServer running at ' +
+      `http://${server.host}:${PORT}/`.green.underline.bold +
+      ` in ${server.env} mode!`
   );
+});
+
+/** Handle Unhandled Exception */
+process.on('unhandledRejection', (err, promises) => {
+  console.log(`Error: ${err.message}`.red);
+  server.close(() => process.exit(1));
 });
